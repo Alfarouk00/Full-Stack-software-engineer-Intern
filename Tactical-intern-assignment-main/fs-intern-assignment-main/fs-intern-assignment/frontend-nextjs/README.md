@@ -5,7 +5,6 @@ Simple Next.js (App Router + TypeScript + Tailwind) client for the Spring Boot I
 ## Credentials
 - **Username:** `admin`
 - **Password:** `password`
-(Frontend-only auth; session stored in `localStorage`)
 
 ## Configure API base URL
 Copy `.env.example` to `.env.local` and set:
