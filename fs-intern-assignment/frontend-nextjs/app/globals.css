@@ -2,11 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #0b1220;
-  --card: #0f172a;
+/* Body styling */
+body {
+  @apply bg-gray-100 text-gray-800 font-sans;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  @apply bg-slate-900 text-slate-100;
+/* Container (centering content) */
+.container {
+  @apply flex justify-center items-center min-h-screen;
+}
+
+/* Card style */
+.card {
+  @apply bg-white shadow-lg rounded-xl p-10 text-center;
+}
+
+/* Headline */
+.card h1 {
+  @apply text-3xl font-bold text-blue-600 mb-4;
+}
+
+/* Paragraph */
+.card p {
+  @apply text-gray-600 mb-6;
+}
+
+/* Buttons */
+.btn {
+  @apply inline-block px-6 py-2 font-semibold rounded-lg transition;
+}
+
+.btn-blue {
+  @apply bg-blue-600 text-white hover:bg-blue-700 mr-3;
+}
+
+.btn-green {
+  @apply bg-green-500 text-white hover:bg-green-600;
 }
