@@ -1,4 +1,4 @@
-# Full Stack Software Engineer - Internship | Interview Challenge
+# Full Stack Software Engineer - Internship
 
 This repository contains:
 - **backend-springboot**: Spring Boot (Gradle) REST API with MongoDB
@@ -9,7 +9,7 @@ This repository contains:
 ### 1) Run MongoDB
 Using Docker:
 ```bash
-docker run -d --name mongo -p 27017:27017 mongo:7
+docker run -d --name mongo -p 27017:27017 mongo:latest
 ```
 
 ### 2) Start Backend
@@ -27,19 +27,3 @@ npm install
 npm run dev
 ```
 Open **http://localhost:3000**. Login with `admin` / `password`.
-
-## Testing the API (curl)
-```bash
-curl -X POST http://localhost:8080/api/items -H "Content-Type: application/json" -d '{"name":"Sample","description":"Hello"}'
-curl http://localhost:8080/api/items
-```
-
-## Notes
-- Validation via `@Valid` and `@NotBlank`.
-- Errors handled by `@RestControllerAdvice`.
-- CORS allows `http://localhost:3000` by default.
-- Frontend stores session in `localStorage` (no backend auth).
-
-## Bonus
-- Frontend uses **TypeScript** and **env variable** `NEXT_PUBLIC_API_BASE`.
-- Dockerfile for backend provided.
