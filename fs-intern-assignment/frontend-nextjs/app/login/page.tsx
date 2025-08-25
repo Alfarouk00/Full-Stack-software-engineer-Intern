@@ -1,15 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { login, isAuthed } from '@/lib/auth';
-import { useEffect } from 'react';
+import { login, isAuthed } from '../../lib/auth';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     if (isAuthed()) router.push('/items');
@@ -26,27 +25,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-sm mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
-      <form onSubmit={onSubmit} className="space-y-3 bg-slate-800 p-4 rounded-xl">
-        <input
-          className="w-full px-3 py-2 rounded bg-slate-700 outline-none"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          className="w-full px-3 py-2 rounded bg-slate-700 outline-none"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <p className="text-red-400 text-sm">{error}</p>}
-        <button className="w-full px-3 py-2 rounded bg-slate-600 hover:bg-slate-500 transition">
-          Sign in
-        </button>
-      </form>
+    <div className="container">
+      <div className="card max-w-sm w-full">
+        <h1>Login</h1>
+        <p className="text-gray-600 mb-6">Enter your username and password to sign in.</p>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <input
+            className="w-full px-3 py-2 rounded bg-gray-100 outline-none border border-gray-300 focus:border-blue-500"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            className="w-full px-3 py-2 rounded bg-gray-100 outline-none border border-gray-300 focus:border-blue-500"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {error && <p className="text-red-400 text-sm">{error}</p>}
+          <button type="submit" className="btn btn-blue w-full">
+            Sign in
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
