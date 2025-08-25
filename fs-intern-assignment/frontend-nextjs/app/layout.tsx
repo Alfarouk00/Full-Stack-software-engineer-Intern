@@ -1,3 +1,5 @@
+import './globals.css';
+
 export const metadata = {
   title: "Items App",
   description: "Simple Next.js client for Spring Boot API"

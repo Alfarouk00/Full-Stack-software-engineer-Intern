@@ -1,8 +1,14 @@
 export default function Home() {
   return (
-    <div className="space-y-2">
-      <h1 className="text-2xl font-bold">Welcome</h1>
-      <p className="text-slate-300">Use the navigation to login and manage items.</p>
+    <div className="container">
+      <div className="card">
+        <h1>Welcome</h1>
+        <p>Use the navigation to login and manage items easily.</p>
+        <div>
+          <a href="/items" className="btn btn-blue">View Items</a>
+          <a href="/login" className="btn btn-green">Login</a>
+        </div>
+      </div>
     </div>
   );
 }

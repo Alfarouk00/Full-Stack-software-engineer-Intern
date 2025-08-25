@@ -1,9 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 /// <reference types="next" />
 /// <reference types="next/image-types/global" />
 
-declare namespace NodeJS {
-  interface ProcessEnv {
-    NEXT_PUBLIC_API_BASE?: string;
-  }
-}
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/basic-features/typescript for more information.
