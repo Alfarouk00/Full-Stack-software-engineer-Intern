@@ -1,3 +1,10 @@
+package com.example.items.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 @Configuration
 public class WebConfig {
 
@@ -6,15 +13,13 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
+                registry.addMapping("/**") // allow all paths
                         .allowedOrigins(
-                                "https://psychic-space-giggle-4j6pgjjjrx96h5w7w-3003.app.github.dev", // frontend URL
-                                "http://localhost:3000"
-                        )
+                            "https://psychic-space-giggle-4j6pgjjjrx96h5w7w-3000.app.github.dev"
+                        ) // allow frontend URL
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true)
-                        .maxAge(3600);
+                        .allowCredentials(true);
             }
         };
     }
