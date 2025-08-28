@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/items")
 @Validated
-@CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
 public class ItemController {
     @Autowired
     private ItemRepository repository;

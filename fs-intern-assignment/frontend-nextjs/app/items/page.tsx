@@ -19,7 +19,7 @@ export default function ItemsPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8080';
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://psychic-space-giggle-4j6pgjjjrx96h5w7w-8080.app.github.dev';
 
   useEffect(() => {
     if (!isAuthed()) {
@@ -34,11 +34,23 @@ export default function ItemsPage() {
     setErr(null);
     try {
       const res = await fetch(`${API_BASE}/api/items`);
-      if (!res.ok) throw new Error(`API error ${res.status}`);
+      if (!res.ok) {
+        let errorMessage = `API error ${res.status}`;
+        try {
+          const errJson = await res.json();
+          errorMessage = errJson.message || errJson.error || errorMessage;
+        } catch (_) {}
+        throw new Error(errorMessage);
+      }
       const data = await res.json();
       setItems(data);
     } catch (e: any) {
-      setErr(e.message || 'Failed to fetch items');
+      console.error('Fetch error details:', e);
+      if (e instanceof TypeError && e.message === 'Failed to fetch') {
+        setErr('Network error or CORS issue. Backend might be unreachable.');
+      } else {
+        setErr(e.message || 'Failed to fetch items');
+      }
     } finally {
       setLoading(false);
     }
@@ -53,16 +65,24 @@ export default function ItemsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, description })
       });
+
       if (res.status === 400) {
         const j = await res.json();
         throw new Error(j?.details?.name || 'Validation failed');
       }
+
       if (!res.ok) throw new Error(`API error ${res.status}`);
+
       setName('');
       setDescription('');
       await fetchItems();
     } catch (e: any) {
-      setErr(e.message || 'Failed to add item');
+      console.error('Add item error details:', e);
+      if (e instanceof TypeError && e.message === 'Failed to fetch') {
+        setErr('Network error or CORS issue. Backend might be unreachable.');
+      } else {
+        setErr(e.message || 'Failed to add item');
+      }
     }
   }
 
