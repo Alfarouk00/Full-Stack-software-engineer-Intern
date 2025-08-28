@@ -13,10 +13,9 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // allow all paths
-                        .allowedOrigins(
-                            "https://psychic-space-giggle-4j6pgjjjrx96h5w7w-3000.app.github.dev"
-                        ) // allow frontend URL
+                // Accept any Codespaces frontend origin
+                registry.addMapping("/**")
+                        .allowedOriginPatterns("*app.github.dev")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

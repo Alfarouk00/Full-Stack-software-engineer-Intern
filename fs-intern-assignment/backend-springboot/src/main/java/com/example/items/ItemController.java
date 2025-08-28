@@ -13,6 +13,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/items")
 @Validated
+@CrossOrigin(
+    origins = "https://psychic-space-giggle-4j6pgjjjrx96h5w7w-3000.app.github.dev",
+    allowCredentials = "true"
+)
 public class ItemController {
     @Autowired
     private ItemRepository repository;
