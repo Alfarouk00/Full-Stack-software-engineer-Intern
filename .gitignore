@@ -5,3 +5,5 @@ node_modules/
 .next/
 frontend-nextjs/node_modules/
 frontend-nextjs/.next/
+frontend-nextjs/node_modules/
+frontend-nextjs/.next/
