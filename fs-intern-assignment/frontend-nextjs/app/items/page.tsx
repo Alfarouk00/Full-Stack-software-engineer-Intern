@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { login, isAuthed, logout } from '../../lib/auth';
+import { isAuthed } from '../../lib/auth';
 
 type Item = {
   id: string;
@@ -23,23 +23,21 @@ export default function ItemsPage() {
     process.env.NEXT_PUBLIC_API_BASE ||
     'https://psychic-space-giggle-4j6pgjjjrx96h5w7w-8080.app.github.dev';
 
-  // Redirect if not authenticated & fetch items
   useEffect(() => {
     if (!isAuthed()) {
       router.push('/login');
       return;
     }
     fetchItems();
-  }, []);
+  }, [router]);
 
-  // Fetch all items
   async function fetchItems() {
     setLoading(true);
     setErr(null);
 
     try {
       const res = await fetch(`${API_BASE}/api/items`, {
-        credentials: 'include', // include cookies
+        credentials: 'include',
       });
 
       if (!res.ok) {
@@ -65,7 +63,6 @@ export default function ItemsPage() {
     }
   }
 
-  // Add a new item
   async function addItem(e: React.FormEvent) {
     e.preventDefault();
     setErr(null);
@@ -101,19 +98,8 @@ export default function ItemsPage() {
   return (
     <div className="container mx-auto p-6">
       <div className="max-w-4xl mx-auto space-y-6">
+        <h1 className="text-2xl font-bold">Items</h1>
 
-        {/* Header: Logout button on the left */}
-        <div className="flex items-center justify-start space-x-4">
-          <button
-            onClick={() => { logout(); router.push('/login'); }}
-            className="text-sm underline text-blue-600"
-          >
-            Logout
-          </button>
-          <h1 className="text-2xl font-bold">Items</h1>
-        </div>
-
-        {/* Add Item Form */}
         <div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-3xl space-y-4">
           <form onSubmit={addItem} className="space-y-4">
             <input
@@ -139,7 +125,6 @@ export default function ItemsPage() {
           </form>
         </div>
 
-        {/* Items List */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-blue-600 text-left">List</h2>
           {loading ? (

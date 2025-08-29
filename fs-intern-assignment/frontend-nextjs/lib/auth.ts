@@ -2,18 +2,20 @@
 
 export const SESSION_KEY = 'session';
 
-export function login(username: string, password: string): boolean {
+// lib/auth.ts
+export function login(username: string, password: string) {
+  // hardcoded for now
   if (username === 'admin' && password === 'password') {
-    localStorage.setItem(SESSION_KEY, 'admin');
+    localStorage.setItem('authed', 'true');
     return true;
   }
   return false;
 }
 
-export function isAuthed(): boolean {
-  return typeof window !== 'undefined' && !!localStorage.getItem(SESSION_KEY);
+export function logout() {
+  localStorage.removeItem('authed');
 }
 
-export function logout() {
-  if (typeof window !== 'undefined') localStorage.removeItem(SESSION_KEY);
+export function isAuthed() {
+  return localStorage.getItem('authed') === 'true';
 }
