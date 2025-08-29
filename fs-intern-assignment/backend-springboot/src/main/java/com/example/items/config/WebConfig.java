@@ -14,11 +14,10 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://psychic-space-giggle-4j6pgjjjrx96h5w7w-3000.app.github.dev")
-                        .allowedMethods("*")
+                        .allowedOriginPatterns("https://*.github.dev") // allow Codespaces frontend
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
-
             }
         };
     }
