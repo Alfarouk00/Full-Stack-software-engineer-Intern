@@ -19,10 +19,6 @@ export default function ItemsPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const API_BASE =
-    process.env.NEXT_PUBLIC_API_BASE ||
-    'https://psychic-space-giggle-4j6pgjjjrx96h5w7w-8080.app.github.dev';
-
   useEffect(() => {
     if (!isAuthed()) {
       router.push('/login');
@@ -36,8 +32,8 @@ export default function ItemsPage() {
     setErr(null);
 
     try {
-      const res = await fetch(`${API_BASE}/api/items`, {
-        credentials: 'include',
+      const res = await fetch('/api/items', {
+        credentials: 'include', // remove if backend does not require cookies
       });
 
       if (!res.ok) {
@@ -68,11 +64,11 @@ export default function ItemsPage() {
     setErr(null);
 
     try {
-      const res = await fetch(`${API_BASE}/api/items`, {
+      const res = await fetch('/api/items', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, description }),
-        credentials: 'include',
+        credentials: 'include', // remove if not needed
       });
 
       if (res.status === 400) {
