@@ -19,6 +19,11 @@ export default function ItemsPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  // Use environment variable for backend base URL, fallback to Codespaces URL
+  const API_BASE =
+    process.env.NEXT_PUBLIC_API_BASE ||
+    'https://psychic-space-giggle-4j6pgjjjrx96h5w7w-8080.app.github.dev';
+
   useEffect(() => {
     if (!isAuthed()) {
       router.push('/login');
@@ -32,7 +37,7 @@ export default function ItemsPage() {
     setErr(null);
 
     try {
-      const res = await fetch('/api/items', {
+      const res = await fetch(`${API_BASE}/api/items`, {
         credentials: 'include', // remove if backend does not require cookies
       });
 
@@ -51,7 +56,7 @@ export default function ItemsPage() {
       console.error('Fetch items error:', e);
       setErr(
         e instanceof TypeError && e.message === 'Failed to fetch'
-          ? 'Network error or CORS issue. Backend might be unreachable.'
+          ? 'Network error or CORS issue. Make sure your backend is running and CORS is configured.'
           : e.message || 'Failed to fetch items'
       );
     } finally {
@@ -64,7 +69,7 @@ export default function ItemsPage() {
     setErr(null);
 
     try {
-      const res = await fetch('/api/items', {
+      const res = await fetch(`${API_BASE}/api/items`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, description }),
@@ -85,7 +90,7 @@ export default function ItemsPage() {
       console.error('Add item error:', e);
       setErr(
         e instanceof TypeError && e.message === 'Failed to fetch'
-          ? 'Network error or CORS issue. Backend might be unreachable.'
+          ? 'Network error or CORS issue. Make sure your backend is running and CORS is configured.'
           : e.message || 'Failed to add item'
       );
     }
